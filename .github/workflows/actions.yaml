@@ -8,8 +8,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
-        with:
-          working-directory: check-commit
   check_commit:
     if: ${{ github.event_name == 'pull_request' }}
     name: HAProxy check commit message
@@ -36,10 +34,10 @@ jobs:
       id: go
     - name: Get dependencies
       run: |
-        cd check-commit && go get -v -t -d ./...
+        go get -v -t -d ./...
     - name: Build
       run: |
-        cd check-commit && go build -v .
+        go build -v .
   go_test:
     name: Go test
     runs-on: ubuntu-latest
@@ -52,7 +50,7 @@ jobs:
       id: go
     - name: Get dependencies
       run: |
-        cd check-commit && go get -v -t -d ./...
+        go get -v -t -d ./...
     - name: Build
       run: |
-        cd check-commit && go test ./...
+        go test ./...
